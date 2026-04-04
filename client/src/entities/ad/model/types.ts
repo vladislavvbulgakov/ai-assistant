@@ -16,12 +16,12 @@ export type Ad = {
     id: number;
     title: string;
     description?: string;
-    price: number | null;
+    price: number;
     createdAt: string;
     updatedAt: string;
     category: Category;
     params: AutoItemParams | RealEstateItemParams | ElectronicsItemParams;
-    needsRevision: boolean;
+    needsRevision?: boolean;
 };
 export type ItemUpdateInput = {
     category: Category;
