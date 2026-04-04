@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import AdsListPage from "@/pages/adsList/adsListPage";
+import AdsListPage from "@/pages/adsList/adsListPage/adsListPage";
 import AdViewPage from "@/pages/adView";
 import AdEditPage from "@/pages/adEdit";
 
