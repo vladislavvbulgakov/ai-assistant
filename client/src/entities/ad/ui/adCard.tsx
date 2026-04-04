@@ -40,7 +40,7 @@ export const AdCard = ({ ad }: Props) => {
                         left={8}
                         radius={6}
                     >
-                        <Text size="xs" tt={"capitalize"} p={4}>
+                        <Text size="0.8rem" tt={"capitalize"} p={4}>
                             {categoryMap[category]}
                         </Text>
                     </Badge>

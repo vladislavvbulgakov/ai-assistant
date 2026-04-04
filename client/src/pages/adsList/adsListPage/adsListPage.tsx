@@ -3,7 +3,7 @@ import AdsHeader from "../adsHeader";
 import AdsToolbar from "../adsToolbar/adsTollbar";
 import styles from "./adsListPage.module.css";
 import { Stack } from "@mantine/core";
-import AdsFeed from "../adsFeed";
+import AdsFeed from "../adsFeed/adsFeed";
 import ads from "@/mockData/mockData";
 import { mapAdToPreview } from "@/entities/ad/lib/mapAdToPreview";
 
