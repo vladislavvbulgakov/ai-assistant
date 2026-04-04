@@ -1,14 +1,16 @@
-import { Group, Box, Stack } from "@mantine/core";
+import { Group, Box, Stack, Skeleton } from "@mantine/core";
 import AdsGrid from "../adsGrid";
 import FiltersSidebar from "@/features/adsFilters/ui/filtersSidebar";
 import { Pagination } from "@mantine/core";
 import type { AdPreview } from "@/entities/ad/model/types";
 import styles from "./adsFeed.module.css";
 interface Props {
-    ads: AdPreview[];
+    ads: AdPreview[] | undefined;
+    isLoading: boolean;
+    isError: boolean;
 }
 
-const AdsFeed = ({ ads }: Props) => {
+const AdsFeed = ({ ads, isLoading, isError }: Props) => {
     return (
         <Group
             align="flex-start"
@@ -22,10 +24,28 @@ const AdsFeed = ({ ads }: Props) => {
 
             <Box style={{ flex: 1 }}>
                 <Stack gap="md">
-                    <AdsGrid ads={ads} />
+                    {isLoading && (
+                        <>
+                            <Skeleton height={50} circle mb="xl" />
+                            <Skeleton height={8} radius="xl" />
+                            <Skeleton height={8} mt={6} radius="xl" />
+                            <Skeleton
+                                height={8}
+                                mt={6}
+                                width="70%"
+                                radius="xl"
+                            />
+                        </>
+                    )}
+
+                    {isError && <div>Ошибка загрузки</div>}
+
+                    {!isLoading && !isError && <AdsGrid ads={ads} />}
 
                     <Box style={{ display: "flex", justifyContent: "left" }}>
-                        <Pagination total={5} value={1} onChange={() => {}} />
+                        {!isLoading && !isError && (
+                            <Pagination total={5} value={1} />
+                        )}
                     </Box>
                 </Stack>
             </Box>

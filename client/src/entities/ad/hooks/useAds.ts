@@ -6,5 +6,6 @@ export const useAds = () => {
     return useQuery<AdsResponse>({
         queryKey: ["ads"],
         queryFn: getAds,
+        // staleTime: 1000 * 60 * 5,
     });
 };

@@ -4,18 +4,21 @@ import AdsToolbar from "../adsToolbar/adsTollbar";
 import styles from "./adsListPage.module.css";
 import { Stack } from "@mantine/core";
 import AdsFeed from "../adsFeed/adsFeed";
-import ads from "@/mockData/mockData";
-import { mapAdToPreview } from "@/entities/ad/lib/mapAdToPreview";
+import { useAds } from "@/entities/ad/hooks/useAds";
 
-const data = ads.map(mapAdToPreview);
 const AdsListPage = () => {
+    const { data, isLoading, isError } = useAds();
     return (
         <AppContainer>
             <div className={styles.wrapper}>
                 <Stack gap="md">
-                    <AdsHeader total={42} />
+                    <AdsHeader total={data?.total ?? 0} />
                     <AdsToolbar />
-                    <AdsFeed ads={data} />
+                    <AdsFeed
+                        ads={data?.items}
+                        isLoading={isLoading}
+                        isError={isError}
+                    />
                 </Stack>
             </div>
         </AppContainer>
