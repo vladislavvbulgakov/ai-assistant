@@ -72,3 +72,4 @@ export interface Filters {
     categories: Category[];
     needsRevision: boolean;
 }
+export type Layout = "grid" | "list";

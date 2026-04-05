@@ -8,7 +8,7 @@ import { useAds } from "@/entities/ad/hooks/useAds";
 import { useState } from "react";
 import { useDebounce } from "@/shared/lib/useDebounce";
 import { parseSort } from "@/shared/lib/parseSort";
-import type { Category, Filters } from "@/entities/ad/model/types";
+import type { Category, Filters, Layout } from "@/entities/ad/model/types";
 
 const AdsListPage = () => {
     const [search, setSearch] = useState("");
@@ -16,6 +16,7 @@ const AdsListPage = () => {
     const [sort, setSort] = useState<string | null>("createdAt_desc");
     const sortParams = parseSort(sort);
 
+    const [layout, setLayout] = useState<Layout>("grid");
     const [filters, setFilters] = useState({
         categories: [] as Category[],
         needsRevision: false,
@@ -56,6 +57,8 @@ const AdsListPage = () => {
                         setSearch={handleSearchChange}
                         sort={sort}
                         setSort={handleSortChange}
+                        layout={layout}
+                        setLayout={setLayout}
                     />
                     <AdsFeed
                         ads={data?.items}
@@ -67,6 +70,7 @@ const AdsListPage = () => {
                         onChangePage={setPage}
                         total={data?.total ?? 0}
                         limit={LIMIT}
+                        layout={layout}
                     />
                 </Stack>
             </div>

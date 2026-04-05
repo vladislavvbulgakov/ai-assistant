@@ -1,9 +1,10 @@
 import { Group, Box, Stack, Skeleton } from "@mantine/core";
-import AdsGrid from "../adsGrid";
+import AdsGrid from "../../../entities/ad/ui/adsGrid";
 import FiltersSidebar from "@/features/adsFilters/ui/filtersSidebar";
 import { Pagination } from "@mantine/core";
-import type { AdPreview, Filters } from "@/entities/ad/model/types";
+import type { AdPreview, Filters, Layout } from "@/entities/ad/model/types";
 import styles from "./adsFeed.module.css";
+import AdsList from "../../../entities/ad/ui/adsList";
 interface Props {
     ads: AdPreview[] | undefined;
     isLoading: boolean;
@@ -15,6 +16,8 @@ interface Props {
     onChangePage: (page: number) => void;
     total: number;
     limit: number;
+
+    layout: Layout;
 }
 
 const AdsFeed = ({
@@ -27,6 +30,7 @@ const AdsFeed = ({
     onChangePage,
     total,
     limit,
+    layout,
 }: Props) => {
     const totalPages = Math.ceil(total / limit);
     return (
@@ -58,7 +62,13 @@ const AdsFeed = ({
 
                     {isError && <div>Ошибка загрузки</div>}
 
-                    {!isLoading && !isError && <AdsGrid ads={ads} />}
+                    {!isLoading &&
+                        !isError &&
+                        (layout === "grid" ? (
+                            <AdsGrid ads={ads} />
+                        ) : (
+                            <AdsList ads={ads} />
+                        ))}
 
                     <Box style={{ display: "flex", justifyContent: "left" }}>
                         {!isLoading && !isError && totalPages > 1 && (
