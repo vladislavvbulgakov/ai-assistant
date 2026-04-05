@@ -79,7 +79,7 @@ https://ollama.com/download
 ### 2. Скачать модель
 
 ```bash
-ollama pull llama3
+ollama serve
 ```
 
 ---
