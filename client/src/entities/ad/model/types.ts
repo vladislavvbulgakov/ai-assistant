@@ -15,7 +15,7 @@ export type GetAdsParams = {
     q?: string;
     limit?: number;
     skip?: number;
-    categories?: ("auto" | "real_estate" | "electronics")[];
+    categories?: Category[];
     needsRevision?: boolean;
     sortColumn?: "title" | "createdAt" | "price";
     sortDirection?: "asc" | "desc";

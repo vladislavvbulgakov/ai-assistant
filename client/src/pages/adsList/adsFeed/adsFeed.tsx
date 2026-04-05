@@ -2,15 +2,27 @@ import { Group, Box, Stack, Skeleton } from "@mantine/core";
 import AdsGrid from "../adsGrid";
 import FiltersSidebar from "@/features/adsFilters/ui/filtersSidebar";
 import { Pagination } from "@mantine/core";
-import type { AdPreview } from "@/entities/ad/model/types";
+import type { AdPreview, Category } from "@/entities/ad/model/types";
 import styles from "./adsFeed.module.css";
 interface Props {
     ads: AdPreview[] | undefined;
     isLoading: boolean;
     isError: boolean;
+    filters: Filters;
+    onChangeFilters: (filter: Filters) => void;
+}
+interface Filters {
+    categories: Category[];
+    needsRevision: boolean;
 }
 
-const AdsFeed = ({ ads, isLoading, isError }: Props) => {
+const AdsFeed = ({
+    ads,
+    isLoading,
+    isError,
+    filters,
+    onChangeFilters,
+}: Props) => {
     return (
         <Group
             align="flex-start"
@@ -19,7 +31,7 @@ const AdsFeed = ({ ads, isLoading, isError }: Props) => {
             className={styles.wrapper}
         >
             <Box w={260} style={{ flexShrink: 0 }}>
-                <FiltersSidebar />
+                <FiltersSidebar filters={filters} onChange={onChangeFilters} />
             </Box>
 
             <Box style={{ flex: 1 }}>

@@ -10,12 +10,39 @@ import {
     ActionIcon,
 } from "@mantine/core";
 import { IconChevronDown } from "@tabler/icons-react";
+import type { Category } from "@/entities/ad/model/types";
 import { useState } from "react";
-import { CATEGORY_OPTIONS } from "@/entities/ad/lib/category";
+import { CATEGORIES } from "@/entities/ad/model/constants";
+interface Filters {
+    categories: Category[];
+    needsRevision: boolean;
+}
 
-const FiltersSidebar = () => {
+interface Props {
+    filters: Filters;
+    onChange: (filters: Filters) => void;
+}
+const FiltersSidebar = ({ filters, onChange }: Props) => {
     const [isOpened, setIsOpened] = useState(true);
+    const handleCategoryChange = (category: Category) => {
+        const isSelected = filters.categories.includes(category);
 
+        const newCategories = isSelected
+            ? filters.categories.filter((c) => c !== category)
+            : [...filters.categories, category];
+
+        onChange({
+            ...filters,
+            categories: newCategories,
+        });
+    };
+
+    const handleReset = () => {
+        onChange({
+            categories: [],
+            needsRevision: false,
+        });
+    };
     return (
         <Stack gap="xs">
             <Paper withBorder radius="md" p="md">
@@ -51,11 +78,17 @@ const FiltersSidebar = () => {
 
                         <Collapse expanded={isOpened}>
                             <Stack gap={6} mt="xs">
-                                {CATEGORY_OPTIONS.map((cat) => (
+                                {CATEGORIES.map((cat) => (
                                     <Checkbox
                                         key={cat.value}
                                         size="sm"
                                         label={cat.label}
+                                        checked={filters.categories.includes(
+                                            cat.value,
+                                        )}
+                                        onChange={() =>
+                                            handleCategoryChange(cat.value)
+                                        }
                                     />
                                 ))}
                             </Stack>
@@ -68,12 +101,25 @@ const FiltersSidebar = () => {
                             labelPosition="left"
                             label="Только требующие доработок"
                             fw={600}
+                            checked={filters.needsRevision}
+                            onChange={(e) =>
+                                onChange({
+                                    ...filters,
+                                    needsRevision: e.currentTarget.checked,
+                                })
+                            }
                         />
                     </Group>
                 </Stack>
             </Paper>
 
-            <Button variant="subtle" color="gray" fullWidth bg={"white"}>
+            <Button
+                variant="subtle"
+                color="gray"
+                fullWidth
+                bg={"white"}
+                onClick={handleReset}
+            >
                 <Text size="sm" variant="text">
                     {" "}
                     Сбросить фильтры
