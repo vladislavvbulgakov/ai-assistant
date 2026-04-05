@@ -1,6 +1,7 @@
 import { Card, Image, Text, Badge, Group, Stack } from "@mantine/core";
 import cover from "@/assets/cover.png";
 import type { AdPreview } from "../model/types";
+import { useNavigate } from "react-router-dom";
 
 const categoryMap: Record<AdPreview["category"], string> = {
     auto: "Авто",
@@ -13,8 +14,19 @@ interface Props {
 }
 
 export const AdListItem = ({ ad }: Props) => {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate(`/ads/${ad.id}`);
+    };
     return (
-        <Card withBorder radius="md" p="sm">
+        <Card
+            withBorder
+            radius="md"
+            p="sm"
+            onClick={handleClick}
+            style={{ cursor: "pointer" }}
+        >
             <Group align="flex-start" wrap="nowrap">
                 <Image
                     src={cover}

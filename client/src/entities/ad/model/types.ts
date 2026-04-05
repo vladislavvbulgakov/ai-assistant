@@ -1,6 +1,7 @@
 export type Category = "auto" | "real_estate" | "electronics";
 
 export type AdPreview = {
+    id: number;
     category: Category;
     title: string;
     price: number;

@@ -9,8 +9,8 @@ interface Props {
 const AdsList = ({ ads }: Props) => {
     return (
         <Stack gap="sm">
-            {ads?.map((ad, index) => (
-                <AdListItem key={index} ad={ad} />
+            {ads?.map((ad) => (
+                <AdListItem key={ad.id} ad={ad} />
             ))}
         </Stack>
     );
