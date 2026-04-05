@@ -7,7 +7,7 @@ export const useAdsFilters = () => {
 
     const initialSearch = searchParams.get("q") || "";
     const initialPage = Number(searchParams.get("page") || 1);
-    const initialSort = searchParams.get("sort") || "createdAt_desc";
+    const initialSort = searchParams.get("sort") || "";
     const initialCategories = searchParams.get("categories")
         ? (searchParams.get("categories")!.split(",") as Category[])
         : [];
