@@ -2,14 +2,15 @@ import { pluralizeAds } from "@/shared/lib/pluralize";
 import { Title, Text, Stack } from "@mantine/core";
 interface Props {
     total: number;
+    isLoading: boolean;
 }
 
-const AdsHeader = ({ total }: Props) => {
+const AdsHeader = ({ total, isLoading }: Props) => {
     return (
         <Stack gap={4}>
             <Title order={2}>Мои объявления</Title>
             <Text c="dimmed">
-                {total} {pluralizeAds(total)}
+                {isLoading ? "Загрузка..." : `${total} ${pluralizeAds(total)}`}
             </Text>
         </Stack>
     );

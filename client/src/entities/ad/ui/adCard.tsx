@@ -26,7 +26,7 @@ export const AdCard = ({ ad }: Props) => {
                 display: "flex",
                 flexDirection: "column",
             }}
-            h="100%"
+            h="260"
             miw={180}
         >
             <Card.Section>

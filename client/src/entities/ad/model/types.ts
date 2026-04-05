@@ -11,7 +11,15 @@ export type AdsResponse = {
     items: AdPreview[];
     total: number;
 };
-
+export type GetAdsParams = {
+    q?: string;
+    limit?: number;
+    skip?: number;
+    categories?: ("auto" | "real_estate" | "electronics")[];
+    needsRevision?: boolean;
+    sortColumn?: "title" | "createdAt";
+    sortDirection?: "asc" | "desc";
+};
 export type Ad = {
     id: number;
     title: string;

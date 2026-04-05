@@ -1,7 +1,11 @@
 import { TextInput } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 
-const SearchInput = () => {
+interface Props {
+    value: string | undefined;
+    onChange: (value: string) => void;
+}
+const SearchInput = ({ value, onChange }: Props) => {
     return (
         <TextInput
             style={{ flex: 1 }}
@@ -9,6 +13,8 @@ const SearchInput = () => {
             // mr="xs"
             variant="filled"
             rightSection={<IconSearch size={16} />}
+            value={value}
+            onChange={(event) => onChange(event.target.value)}
         />
     );
 };
