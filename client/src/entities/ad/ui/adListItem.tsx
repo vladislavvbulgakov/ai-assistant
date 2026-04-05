@@ -38,10 +38,33 @@ export const AdListItem = ({ ad }: Props) => {
                 />
 
                 <Stack gap={4} style={{ flex: 1 }}>
-                    <Badge variant="light" w="fit-content">
-                        {categoryMap[ad.category]}
-                    </Badge>
+                    <Group gap={6}>
+                        <Badge variant="light" w="fit-content">
+                            {categoryMap[ad.category]}
+                        </Badge>
 
+                        {ad.needsRevision && (
+                            <Badge
+                                variant="light"
+                                styles={{
+                                    root: {
+                                        background: "#fff4e6",
+                                        color: "#f59f00",
+                                        display: "inline-flex",
+                                        alignItems: "center",
+                                        gap: 6,
+                                        paddingLeft: 8,
+                                        paddingRight: 10,
+                                        height: 22,
+                                        lineHeight: "22px",
+                                        whiteSpace: "nowrap",
+                                    },
+                                }}
+                            >
+                                Требует доработок
+                            </Badge>
+                        )}
+                    </Group>
                     <Text fw={500}>{ad.title}</Text>
 
                     <Text c="dimmed">{ad.price.toLocaleString("ru-RU")} ₽</Text>

@@ -2,7 +2,6 @@ import { Card, Image, Text, Badge, Stack, Box } from "@mantine/core";
 import cover from "@/assets/cover.png";
 import type { AdPreview } from "../model/types";
 import { useNavigate } from "react-router-dom";
-
 type Props = {
     ad: AdPreview;
 };
@@ -31,7 +30,6 @@ export const AdCard = ({ ad }: Props) => {
                 display: "flex",
                 flexDirection: "column",
             }}
-            h="260"
             miw={180}
             onClick={handleClick}
         >
@@ -58,9 +56,36 @@ export const AdCard = ({ ad }: Props) => {
                     {title}
                 </Text>
 
-                <Text size="sm" c="dimmed" fw={600} mt="auto">
+                <Text size="sm" c="dimmed" fw={600}>
                     {price.toLocaleString("ru-RU")} ₽
                 </Text>
+                {ad.needsRevision && (
+                    <Box
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 6,
+                            background: "#fff4e6",
+                            borderRadius: 6,
+                            padding: "2px 8px",
+                            width: "fit-content",
+                            marginTop: "auto",
+                        }}
+                    >
+                        <Box
+                            w={6}
+                            h={6}
+                            style={{
+                                borderRadius: "50%",
+                                background: "#f59f00",
+                            }}
+                        />
+
+                        <Text size="xs" c="#f59f00">
+                            Требует доработок
+                        </Text>
+                    </Box>
+                )}
             </Stack>
         </Card>
     );

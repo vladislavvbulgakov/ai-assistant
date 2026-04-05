@@ -1,7 +1,18 @@
 import { Paper, Group, Text, Stack, ThemeIcon } from "@mantine/core";
 import { IconAlertCircle } from "@tabler/icons-react";
 
-const RevisionAlert = () => {
+import type { Ad } from "@/entities/ad/model/types";
+import { getMissingFields } from "@/entities/ad/lib/getMissingFields";
+
+interface Props {
+    ad: Ad;
+}
+
+const RevisionAlert = ({ ad }: Props) => {
+    const missingFields = getMissingFields(ad);
+
+    if (missingFields.length === 0) return null;
+
     return (
         <Paper
             p="md"
@@ -22,8 +33,11 @@ const RevisionAlert = () => {
                     <Text size="sm">У объявления не заполнены поля:</Text>
 
                     <ul style={{ margin: 0, paddingLeft: 18 }}>
-                        <li>Цвет</li>
-                        <li>Состояние</li>
+                        {missingFields.map((field) => (
+                            <li key={field}>
+                                <Text size="sm">{field}</Text>
+                            </li>
+                        ))}
                     </ul>
                 </Stack>
             </Group>

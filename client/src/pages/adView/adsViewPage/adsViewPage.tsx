@@ -35,7 +35,7 @@ const AdsViewPage = () => {
                         updatedAt={ad.updatedAt}
                     />
                     <Divider />
-                    <AdsViewDetails params={mapAdParams(ad)} />
+                    <AdsViewDetails params={mapAdParams(ad)} ad={ad} />
                     <AdsViewDescription description={ad.description} />
                     <AdsViewBackButton />
                 </Stack>
