@@ -1,6 +1,12 @@
 import { Select } from "@mantine/core";
 import styles from "./sortSelect.module.css";
-const SortSelect = () => {
+import { sortOptions } from "../model/sortOption";
+interface Props {
+    value: string | null;
+    onChange: (value: string | null) => void;
+}
+
+const SortSelect = ({ value, onChange }: Props) => {
     return (
         <Select
             classNames={{
@@ -8,18 +14,9 @@ const SortSelect = () => {
             }}
             w={240}
             placeholder="По новизне (сначала новые)"
-            data={[
-                {
-                    value: "createdAt_desc",
-                    label: "По новизне (сначала новые)",
-                },
-                {
-                    value: "createdAt_asc",
-                    label: "По новизне (старые)",
-                },
-                { value: "price_asc", label: "Сначала дешевле" },
-                { value: "price_desc", label: "Сначала дороже" },
-            ]}
+            value={value}
+            data={sortOptions}
+            onChange={onChange}
         />
     );
 };

@@ -17,7 +17,7 @@ export type GetAdsParams = {
     skip?: number;
     categories?: ("auto" | "real_estate" | "electronics")[];
     needsRevision?: boolean;
-    sortColumn?: "title" | "createdAt";
+    sortColumn?: "title" | "createdAt" | "price";
     sortDirection?: "asc" | "desc";
 };
 export type Ad = {
@@ -30,6 +30,10 @@ export type Ad = {
     category: Category;
     params: AutoItemParams | RealEstateItemParams | ElectronicsItemParams;
     needsRevision?: boolean;
+};
+export type SortOption = {
+    label: string;
+    value: string;
 };
 export type ItemUpdateInput = {
     category: Category;
