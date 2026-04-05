@@ -68,3 +68,7 @@ export type ElectronicsItemParams = {
     condition?: "new" | "used";
     color?: string;
 };
+export interface Filters {
+    categories: Category[];
+    needsRevision: boolean;
+}

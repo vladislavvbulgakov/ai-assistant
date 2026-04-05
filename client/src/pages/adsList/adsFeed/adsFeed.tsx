@@ -2,18 +2,19 @@ import { Group, Box, Stack, Skeleton } from "@mantine/core";
 import AdsGrid from "../adsGrid";
 import FiltersSidebar from "@/features/adsFilters/ui/filtersSidebar";
 import { Pagination } from "@mantine/core";
-import type { AdPreview, Category } from "@/entities/ad/model/types";
+import type { AdPreview, Filters } from "@/entities/ad/model/types";
 import styles from "./adsFeed.module.css";
 interface Props {
     ads: AdPreview[] | undefined;
     isLoading: boolean;
     isError: boolean;
     filters: Filters;
-    onChangeFilters: (filter: Filters) => void;
-}
-interface Filters {
-    categories: Category[];
-    needsRevision: boolean;
+    onChangeFilters: (filters: Filters) => void;
+
+    page: number;
+    onChangePage: (page: number) => void;
+    total: number;
+    limit: number;
 }
 
 const AdsFeed = ({
@@ -22,7 +23,12 @@ const AdsFeed = ({
     isError,
     filters,
     onChangeFilters,
+    page,
+    onChangePage,
+    total,
+    limit,
 }: Props) => {
+    const totalPages = Math.ceil(total / limit);
     return (
         <Group
             align="flex-start"
@@ -55,8 +61,12 @@ const AdsFeed = ({
                     {!isLoading && !isError && <AdsGrid ads={ads} />}
 
                     <Box style={{ display: "flex", justifyContent: "left" }}>
-                        {!isLoading && !isError && (
-                            <Pagination total={5} value={1} />
+                        {!isLoading && !isError && totalPages > 1 && (
+                            <Pagination
+                                total={totalPages}
+                                value={page}
+                                onChange={onChangePage}
+                            />
                         )}
                     </Box>
                 </Stack>
