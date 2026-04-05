@@ -13,6 +13,12 @@ import AdsEditFields from "./adsEditFields";
 import { mapAdToForm } from "@/entities/ad/lib/mapAdToForm";
 import { useUpdateAd } from "@/entities/ad/hooks/useUpdateAd";
 import { toast } from "react-toastify";
+import {
+    buildDescriptionPrompt,
+    buildPricePrompt,
+    generateWithOllama,
+} from "@/shared/api/ollama";
+import type { AiState } from "@/features/adsEdit/ui/aiTooltip";
 
 interface Props {
     ad: Ad;
@@ -23,7 +29,11 @@ const getStorageKey = (id: string) => `ad-edit-${id}`;
 const AdsEditForm = ({ ad }: Props) => {
     const navigate = useNavigate();
     const { mutateAsync, isPending } = useUpdateAd();
+    const [priceAiState, setPriceAiState] = useState<AiState>("idle");
+    const [priceResult, setPriceResult] = useState("");
 
+    const [descAiState, setDescAiState] = useState<AiState>("idle");
+    const [descResult, setDescResult] = useState("");
     const [form, setForm] = useState<ItemUpdateInput>(() => {
         try {
             const saved = localStorage.getItem(getStorageKey(String(ad.id)));
@@ -117,7 +127,34 @@ const AdsEditForm = ({ ad }: Props) => {
             console.error(error);
         }
     };
+    const handleSuggestPrice = async () => {
+        setPriceAiState("loading");
 
+        try {
+            const prompt = buildPricePrompt(form);
+            const result = await generateWithOllama(prompt);
+
+            setPriceResult(result);
+            setPriceAiState("success");
+        } catch (e) {
+            console.error(e);
+            setPriceAiState("error");
+        }
+    };
+    const handleDescription = async () => {
+        setDescAiState("loading");
+
+        try {
+            const prompt = buildDescriptionPrompt(form);
+            const result = await generateWithOllama(prompt);
+
+            setDescResult(result);
+            setDescAiState("success");
+        } catch (e) {
+            console.error(e);
+            setDescAiState("error");
+        }
+    };
     return (
         <Stack gap="lg">
             <AdsEditFields
@@ -127,6 +164,14 @@ const AdsEditForm = ({ ad }: Props) => {
                 touched={touched}
                 setTouched={setTouched}
                 validateField={validateField}
+                handleSuggestPrice={handleSuggestPrice}
+                handleDescription={handleDescription}
+                priceAiState={priceAiState}
+                priceResult={priceResult}
+                setPriceAiState={setPriceAiState}
+                descAiState={descAiState}
+                descResult={descResult}
+                setDescAiState={setDescAiState}
             />
 
             <AdsEditActions onSubmit={handleSubmit} isPending={isPending} />
