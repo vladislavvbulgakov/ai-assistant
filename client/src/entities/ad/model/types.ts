@@ -74,3 +74,13 @@ export interface Filters {
     needsRevision: boolean;
 }
 export type Layout = "grid" | "list";
+export type FormErrors = {
+    title?: string;
+    price?: string;
+    category?: string;
+};
+export type TouchedFields = {
+    title?: boolean;
+    price?: boolean;
+    category?: boolean;
+};
