@@ -79,7 +79,7 @@ https://ollama.com/download
 ### 2. Скачать модель
 
 ```bash
-ollama serve
+ollama pull llama3
 ```
 
 ---
@@ -87,7 +87,7 @@ ollama serve
 ### 3. Запустить Ollama
 
 ```bash
-OLLAMA_ORIGINS=* ollama serve
+ollama serve
 ```
 
 ---
