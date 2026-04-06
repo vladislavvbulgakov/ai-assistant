@@ -49,7 +49,7 @@ npm start
 
 ---
 
-### 4. Запуск frontend
+### 4. Установка зависимостей и запуск frontend
 
 ```bash
 cd ..
