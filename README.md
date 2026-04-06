@@ -32,9 +32,10 @@ cd <project>
 
 ---
 
-### 2. Установка зависимостей
+### 2. Установка зависимостей backend 
 
 ```bash
+cd server
 npm install
 ```
 
@@ -43,13 +44,7 @@ npm install
 ### 3. Запуск backend
 
 ```bash
-npm run server
-```
-
-Сервер будет доступен на:
-
-```
-http://localhost:8080
+npm start
 ```
 
 ---
@@ -57,6 +52,9 @@ http://localhost:8080
 ### 4. Запуск frontend
 
 ```bash
+cd ..
+cd client
+npm install
 npm run dev
 ```
 
